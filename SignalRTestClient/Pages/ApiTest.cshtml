@@ -1,0 +1,18 @@
+﻿@page
+@model SignalRTestClient.Pages.ApiTestModel
+@{
+    ViewData["Title"] = "Api Test";
+}
+<h1>@ViewData["Title"]</h1>
+<h4>GET (Api Root: @Model.ApiRoot)</h4>
+<div style="font-family:Courier New, Courier, monospace">
+    @if (Model.Data != null) {
+        @foreach (var i in Model.Data) {
+            <span>@i</span><br />
+        }}
+    else { 
+        <span>null</span>
+    }
+</div>
+
+

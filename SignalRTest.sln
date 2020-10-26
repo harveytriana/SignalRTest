@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30611.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalRTest", "SignalRTest\SignalRTest.csproj", "{683334A7-EBD7-4378-9F36-B1DDA24EFDC2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalRTestClient", "SignalRTestClient\SignalRTestClient.csproj", "{EB5A7107-DBEA-457D-9F11-ACA1E0A71CA5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleClient", "ConsoleClient\ConsoleClient.csproj", "{3C4B0797-70F7-4418-97F6-6999FCE06F47}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{38EAB02E-94AA-45A7-AC1F-244D117BCCF1}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		NOTES.txt = NOTES.txt
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApiTest", "ConsoleApiTest\ConsoleApiTest.csproj", "{884B49A5-2452-4126-BBA5-6A0943254144}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRTest.Shared", "SignalRTest.Shared\SignalRTest.Shared.csproj", "{280B42FD-83C9-4FB7-832B-93698B2CF94D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{683334A7-EBD7-4378-9F36-B1DDA24EFDC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{683334A7-EBD7-4378-9F36-B1DDA24EFDC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{683334A7-EBD7-4378-9F36-B1DDA24EFDC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{683334A7-EBD7-4378-9F36-B1DDA24EFDC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB5A7107-DBEA-457D-9F11-ACA1E0A71CA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB5A7107-DBEA-457D-9F11-ACA1E0A71CA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB5A7107-DBEA-457D-9F11-ACA1E0A71CA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB5A7107-DBEA-457D-9F11-ACA1E0A71CA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C4B0797-70F7-4418-97F6-6999FCE06F47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C4B0797-70F7-4418-97F6-6999FCE06F47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C4B0797-70F7-4418-97F6-6999FCE06F47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C4B0797-70F7-4418-97F6-6999FCE06F47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{884B49A5-2452-4126-BBA5-6A0943254144}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{884B49A5-2452-4126-BBA5-6A0943254144}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{884B49A5-2452-4126-BBA5-6A0943254144}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{884B49A5-2452-4126-BBA5-6A0943254144}.Release|Any CPU.Build.0 = Release|Any CPU
+		{280B42FD-83C9-4FB7-832B-93698B2CF94D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{280B42FD-83C9-4FB7-832B-93698B2CF94D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{280B42FD-83C9-4FB7-832B-93698B2CF94D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{280B42FD-83C9-4FB7-832B-93698B2CF94D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8E803DD5-414E-4D5F-A5A4-F111929AAA2B}
+	EndGlobalSection
+EndGlobal

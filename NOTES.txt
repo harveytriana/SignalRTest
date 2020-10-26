@@ -1,0 +1,40 @@
+﻿Basic Documentation
+https://docs.microsoft.com/en-us/aspnet/core/tutorials/signalr?view=aspnetcore-2.1&tabs=visual-studio
+
+
+PROBLEM
+-------
+Access to XMLHttpRequest 
+	at 'http://localhost:8016/chatHub/negotiate?negotiateVersion=1' 
+	from origin 'https://localhost:44399' has been blocked by CORS policy: 
+		Response to preflight request doesn't pass access control check: 
+		No 'Access-Control-Allow-Origin' header is present on the requested resource. [https://localhost:44399/Client]
+		
+[2020-10-24T06:13:37.948Z] Warning: Error from HTTP request. 0: .
+[2020-10-24T06:13:37.948Z] Error: Failed to complete negotiation with the server: Error
+[2020-10-24T06:13:37.949Z] Error: Failed to start the connection: Error
+Error
+Failed to load resource: net::ERR_FAILED [http://localhost:8016/chatHub/negotiate?negotiateVersion=1]
+
+
+SignalR Server
+http://localhost:8016/
+http://localhost/SignalrTest
+
+~
+https://stackoverflow.com/questions/54823650/cors-policy-dont-want-to-work-with-signalr-and-asp-net-core
+
+
+SignaR Server from Console
+https://www.youtube.com/watch?v=pNfSOBzHd8Y
+
+
+Microsoft Documentation
+https://docs.microsoft.com/en-us/aspnet/core/security/cors?view=aspnetcore-3.1
+https://docs.microsoft.com/es-es/aspnet/core/security/cors?view=aspnetcore-3.1#testc
+ES
+https://docs.microsoft.com/es-es/aspnet/core/security/cors?view=aspnetcore-3.1
+
+Format the Code
+https://stackoverflow.com/questions/5755942/how-do-you-auto-format-code-in-visual-studio
+Edit.FormatDocument	-A LET Shift+Alt+F
