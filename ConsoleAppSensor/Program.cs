@@ -1,5 +1,5 @@
 ﻿// original
-// Update to .NEY Core 3.1 bt Luis Harvey Triana Vega
+// Update to .NET Core 3.1: Luis Harvey Triana Vega
 //
 using System;
 using System.Threading;
@@ -12,14 +12,17 @@ namespace ConsoleAppSensor
 {
     class Program
     {
-        // Solution  
+        // Solution (run both projects)
         static string _HubUri = "http://localhost:8016";
-        // IIS
+        // Publishen in IIS
         // static string _HubUri = "http://localhost/SignalrTest";
         static readonly string _HubPath = "/sensor";
 
         static void Main()
         {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("SENSOR TEST\n");
+            Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine("Press Enter key when server is ready");
             Console.ReadKey();
             Console.Clear();
@@ -35,15 +38,16 @@ namespace ConsoleAppSensor
             var cancellationTokenSource = new CancellationTokenSource();
             var cancellationToken = cancellationTokenSource.Token;
 
-            Task.Run(() => MainAsync(cancellationToken, logger).Wait());
+            Task.Run(() => MainAsync(logger, cancellationToken).Wait());
 
             Console.WriteLine("\nPress Enter to Exit ...");
             Console.ReadKey();
 
+            // cancel the thread
             cancellationTokenSource.Cancel();
         }
 
-        async static Task MainAsync(CancellationToken cancellationToken, ILogger logger)
+        async static Task MainAsync(ILogger logger, CancellationToken cancellationToken)
         {
             var hubConnection = new HubConnectionBuilder()
                  .WithUrl(_HubUri + _HubPath)
@@ -64,17 +68,14 @@ namespace ConsoleAppSensor
                     return;
                 }
                 await Task.Delay(250);
-
                 // Generate the value to Broadcast to Clients:
                 value = Math.Min(Math.Max(value + (0.1 - rnd.NextDouble() / 5.0), -1), 1);
 
                 // Set the Measurement with a Timestamp assigned:
                 measurement.Timestamp = DateTime.UtcNow;
                 measurement.Value= value;
-
-                // Log informations:
+                // report
                 logger.LogInformation($"Broadcasting: {measurement}");
-
                 // Finally send the value:
                 await hubConnection.SendAsync("Broadcast", "Sensor", measurement);
             }

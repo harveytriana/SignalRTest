@@ -3,17 +3,41 @@
 @{
     ViewData["Title"] = "Sensor Test";
 }
+<style>
+    table, td, th {
+        border: 1px solid lightgray;
+    }
+    table {
+        width: 512px;
+        border-collapse: collapse;
+    }
+</style>
 <h1>Sensor Test</h1>
 <hr />
 <p>This is an experiment on providing Real-time Charts</p>
 <canvas id="chart" style="width: 512px; height: 320px"></canvas>
+<br />
+<table cellpadding="4">
+    <tr>
+        <td>Time</td>
+        <td id="sensor-time">00:00:00</td>
+        <td>Vatue</td>
+        <td id="sensor-value">0.000000</td>
+    </tr>
+    <tr>
+        <td colspan="4">
+            <input type="button" class="silverbutton" id="sendButton" value="Send Message" />
+        </td>
+    </tr>
+</table>
 
 @section Scripts{
     <script src="@Url.Content("~/lib/signalr/signalr.min.js")"></script>
     <script src="@Url.Content("~/lib/chart294/Chart.min.js")"></script>
-    <script src="@Url.Content("~/js/sensor.js")"></script>
+    <script src="@Url.Content("~/js/site.js")", asp-append-version="true"></script>
+    <script src="@Url.Content("~/js/sensor.js")", asp-append-version="true"></script>
     <script>
-    // Enclosed in Url function due to supports IIS published
+    // Enclosed in Url function due to support published in IIS
     SensorTest('@Url.Content("~/sensor")');
     </script>
 }

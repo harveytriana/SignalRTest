@@ -18,7 +18,11 @@ var SensorTest = function (hubUrl) {
     values.fill(0);
     labels.fill(0);
 
-    var chart = new Chart(document.getElementById("chart"),
+    // report
+    const tdTime = document.getElementById('sensor-time');
+    const tdValue = document.getElementById('sensor-value');
+
+    const chart = new Chart(document.getElementById("chart"),
         {
             type: 'line',
             data: {
@@ -59,18 +63,29 @@ var SensorTest = function (hubUrl) {
             }
         });
 
-    const connection = new signalR.HubConnectionBuilder().withUrl(hubUrl).build();
+    setRealTime(hubUrl);
 
-    connection.on('Broadcast', function (sender, message) {
-        values.push(message.value);
-        values.shift();
-        // msgic
-        chart.update();
-    });
+    function setRealTime(hubUrl) {
+        const connection = new signalR.HubConnectionBuilder().withUrl(hubUrl).build();
 
-    connection.start().then(function () {
-        console.log('Connection has started.');
-    }).catch(function (err) {
-        console.error(err.toString());
-    });
+        connection.on('Broadcast', function (sender, message) {
+            values.push(message.value);
+            values.shift();
+            // msgic
+            chart.update();
+
+            // report data
+            tdTime.innerHTML = _timeFormat(new Date(message.timestamp));
+            tdValue.innerHTML = message.value;
+        });
+
+        connection.start().then(function () {
+            console.log('Connection has started.');
+        }).catch(function (err) {
+            console.error(err.toString());
+        });
+    }
+
+
+
 }
