@@ -1,4 +1,7 @@
-﻿using System;
+﻿// original
+// Update to .NEY Core 3.1 bt Luis Harvey Triana Vega
+//
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
