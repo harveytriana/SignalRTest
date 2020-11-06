@@ -68,6 +68,7 @@ namespace SignalRTest
             app.UseEndpoints(endpoints => {
                 endpoints.MapRazorPages();
                 endpoints.MapHub<ChatHub>("/chathub");
+                endpoints.MapHub<SensorHub>("/sensor");
                 endpoints.MapControllers();
             });
         }

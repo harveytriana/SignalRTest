@@ -1,28 +1,19 @@
 ﻿@page
-<h1>Server Self SignalR Client</h1>
+@model SignalRTest.Pages.IndexModel
+@{
+}
+<h1>Hello Server</h1>
 <hr />
 <table cellpadding="4">
     <tr>
-        <td>User</td>
-        <td><input type="text" id="userInput" value="Self Client" /></td>
-    </tr>
-    <tr>
-        <td>Message</td>
-        <td><input type="text" id="messageInput" value="Hello" /></td>
+        <td colspan="2">
+            <a class="silverbutton" asp-page="/ChatTest">Clasic Chat Test</a>
+        </td>
     </tr>
     <tr>
         <td colspan="2">
-            <input type="button" class="silverbutton" id="sendButton" value="Send Message" disabled="disabled" />
+            <a class="silverbutton" asp-page="/SensorTest">Sensor Test</a>
         </td>
     </tr>
 </table>
 <hr />
-<div>
-    <ul id="messagesList"></ul>
-</div>
-<script src="@Url.Content("~/lib/signalr/signalr.min.js")"></script>
-<script src="@Url.Content("~/js/chat.js")"></script>
-<script>
-    // Supports IIS published
-    SimpleChat('@Url.Content("~/chatHub")');
-</script>

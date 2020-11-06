@@ -17,4 +17,8 @@
     <ProjectReference Include="..\SignalRTest.Shared\SignalRTest.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\chart271\" />
+  </ItemGroup>
+
 </Project>

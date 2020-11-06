@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.SignalR.Client;
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.SignalR.Client;
 
-namespace ConsoleClient
+namespace ConsoleClientChatTest
 {
     class Program
     {
@@ -14,14 +14,15 @@ namespace ConsoleClient
         // IIS
         static string _HubUri = "http://localhost/SignalrTest";
 
-        static readonly string _hubPath = "/chatHub";
+        static readonly string _HubPath = "/chatHub";
 
         static void Main()
         {
-            Prompt("SignalR Client of raw Chat\n", ConsoleColor.Green);
+            Prompt("SignalR Clasic Chat Sample\n", ConsoleColor.Green);
 
             Console.WriteLine("Press Enter key when server is ready");
             Console.ReadKey();
+            Console.Clear();
 
             if (StartConnectionAsync().Result) {
                 // subscribe remote to events
@@ -42,7 +43,7 @@ namespace ConsoleClient
         {
             try {
                 _connection = new HubConnectionBuilder()
-                     .WithUrl(_HubUri + _hubPath)
+                     .WithUrl(_HubUri + _HubPath)
                      .Build();
 
                 await _connection.StartAsync();
