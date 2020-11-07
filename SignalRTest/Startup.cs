@@ -25,9 +25,9 @@ namespace SignalRTest
             services.AddCors(options => {
                 options.AddPolicy(name: _CorsPolicy,
                     builder => {
-                        builder.WithOrigins("http://localhost:8018",
+                        builder.WithOrigins("http://localhost:8018", // C# client
                                             "http://localhost:5006",
-                                            "http://127.0.0.1:5000")
+                                            "http://127.0.0.1:5000") // Django client
                                .AllowAnyHeader()
                                .AllowCredentials()
                                .AllowAnyMethod()

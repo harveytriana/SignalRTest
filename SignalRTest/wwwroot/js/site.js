@@ -13,7 +13,8 @@ function _timeFormat(d) {
     hours = formatTwoDigits(d.getHours());
     minutes = formatTwoDigits(d.getMinutes());
     seconds = formatTwoDigits(d.getSeconds());
-    return hours + ":" + minutes + ":" + seconds;
+    ms = d.getMilliseconds();
+    return hours + ":" + minutes + ":" + seconds + '.' + formatMS(ms);
 }
 
 /**
@@ -26,4 +27,10 @@ function _timeFormat(d) {
  */
 function formatTwoDigits(n) {
     return n < 10 ? '0' + n : n;
+}
+
+function formatMS(ms) {
+    while ((ms + '').length < 4)
+        ms = '0' + ms;
+    return ms
 }

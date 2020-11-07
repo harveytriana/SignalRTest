@@ -76,7 +76,7 @@ var SensorTest = function (hubUrl) {
 
             // report data
             tdTime.innerHTML = _timeFormat(new Date(message.timestamp));
-            tdValue.innerHTML = message.value;
+            tdValue.innerHTML = Number(message.value).toFixed(5);
         });
 
         connection.start().then(function () {
@@ -85,7 +85,4 @@ var SensorTest = function (hubUrl) {
             console.error(err.toString());
         });
     }
-
-
-
 }
