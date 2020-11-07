@@ -15,7 +15,7 @@ namespace ConsoleAppSensor
         // Solution (run both projects)
         // static string _HubUri = "http://localhost:8016";
         // Publishen in IIS
-        static string _HubUri = "http://localhost/SignalrTest";
+        static readonly string _HubUri = "http://localhost/SignalrTest";
         static readonly string _HubPath = "/sensor";
 
         static void Main()

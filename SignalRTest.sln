@@ -17,9 +17,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApiTest", "ConsoleAp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalRTest.Shared", "SignalRTest.Shared\SignalRTest.Shared.csproj", "{280B42FD-83C9-4FB7-832B-93698B2CF94D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleClientChatTest", "ConsoleClientChatTest\ConsoleClientChatTest.csproj", "{CE0D222C-9F5A-433C-B73D-B3F96012CDEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleClientChatTest", "ConsoleClientChatTest\ConsoleClientChatTest.csproj", "{CE0D222C-9F5A-433C-B73D-B3F96012CDEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAppSensor", "ConsoleAppSensor\ConsoleAppSensor.csproj", "{A05939FE-FE96-4C11-B62A-90C6574CF6ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleAppSensor", "ConsoleAppSensor\ConsoleAppSensor.csproj", "{A05939FE-FE96-4C11-B62A-90C6574CF6ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormsAppTest", "FormsAppTest\FormsAppTest.csproj", "{1F9CD556-B441-4501-A0E4-7572893127F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{A05939FE-FE96-4C11-B62A-90C6574CF6ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A05939FE-FE96-4C11-B62A-90C6574CF6ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A05939FE-FE96-4C11-B62A-90C6574CF6ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F9CD556-B441-4501-A0E4-7572893127F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F9CD556-B441-4501-A0E4-7572893127F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F9CD556-B441-4501-A0E4-7572893127F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F9CD556-B441-4501-A0E4-7572893127F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
