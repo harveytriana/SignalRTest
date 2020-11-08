@@ -66,7 +66,10 @@ var SensorTest = function (hubUrl) {
     setRealTime(hubUrl);
 
     function setRealTime(hubUrl) {
-        const connection = new signalR.HubConnectionBuilder().withUrl(hubUrl).build();
+        const connection = new signalR.HubConnectionBuilder()
+            .withAutomaticReconnect()
+            .withUrl(hubUrl)
+            .build();
 
         connection.on('Broadcast', function (sender, message) {
             values.push(message.value);

@@ -8,7 +8,10 @@ var SimpleChat = function (hubUrl) {
     const button = document.getElementById('sendButton');
     const list = document.getElementById('messagesList');
 
-    const connection = new signalR.HubConnectionBuilder().withUrl(hubUrl).build();
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl(hubUrl)
+        .withAutomaticReconnect()
+        .build();
 
     //Disable send button until connection is established
     button.disabled = true;
