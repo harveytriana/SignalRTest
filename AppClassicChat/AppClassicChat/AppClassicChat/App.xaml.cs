@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,14 +16,22 @@ namespace AppClassicChat
 
         protected override void OnStart()
         {
+            Prompt("OnStart");
         }
 
         protected override void OnSleep()
         {
+            Prompt("OnSleep");
         }
 
         protected override void OnResume()
         {
+            Prompt("OnResume");
+        }
+
+        private void Prompt(string text)
+        {
+            Console.WriteLine($"** {text}");
         }
     }
 }

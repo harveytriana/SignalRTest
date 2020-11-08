@@ -7,8 +7,8 @@ namespace AppClassicChat
 {
     public partial class MainPage : ContentPage
     {
-        HubConnection _h;
-        bool _IsConnected;
+        HubConnection _connection;
+        bool _isConnected;
         string _user;
 
         public MainPage()
@@ -21,55 +21,97 @@ namespace AppClassicChat
             buttonSend.Clicked += async (s, e) => await SendAsync();
         }
 
-        private async Task ConnectAsync() {
-            if (_IsConnected) {
-                Prompt("This client is connected.");
+        private async Task ConnectAsync()
+        {
+            if (_connection != null) {
+                Prompt("Connection is active.");
                 return;
             }
             Prompt("Connecting...");
             try {
-                _h = new HubConnectionBuilder()
+                _connection = new HubConnectionBuilder()
                     .WithUrl(entryUrl.Text)
+                    .WithAutomaticReconnect()
                     .Build();
 
-                // events
-                _h.On<string, string>("ReceiveMessage", (user, message) => {
-                    Prompt($"{user}: {message}");
-                });
+                await _connection.StartAsync();
 
-                //_h.On<int>("ConnectedClients", (clientNumber) => {
-                //    if (_user == null) {
-                //        _user = $"AndroidClient_{clientNumber}";
-                //    }
-                //});
+                if (_connection.State == HubConnectionState.Connected) {
+                    // subscribe to hub events
+                    _connection.Closed += async (e) => await ConnectionClosed(e);
+                    _connection.Reconnected += async (s) => await ConnectionReconnected(s);
+                    _connection.Reconnecting += async (e) => await ConnectionReconnectiong(e);
 
-                await _h.StartAsync();
-                // subscribe
-                // await _h.SendAsync("Subscribe");
+                    // logic events
+                    _connection.On<string, string>("ReceiveMessage", (user, message) => {
+                        Prompt($"{user}: {message}");
+                    });
 
-                _IsConnected = true;
+                    // subscribe to server logic
+                    // await _h.SendAsync("Subscribe");
 
-                Prompt("Connected.");
+                    //_h.On<int>("ConnectedClients", (clientNumber) => {
+                    //    if (_user == null) {
+                    //        _user = $"AndroidClient_{clientNumber}";
+                    //    }
+                    //});
+
+                    Prompt($"State: {_connection.State}", true);
+                    _isConnected = true;
+                }
             }
             catch (Exception exception) {
-                Prompt(exception.Message);
-                _IsConnected = false;
+                Prompt(exception.Message, true);
+                _isConnected = false;
                 return;
             }
         }
 
         private async Task SendAsync()
         {
-            if (_IsConnected) {
-                await _h.SendAsync("SendMessage", _user, entryMessage.Text);
+            if (_isConnected) {
+                await _connection.SendAsync("SendMessage", _user, entryMessage.Text);
             } else {
                 Prompt("This client is not connected.");
             }
         }
 
-        private void Prompt(string text)
+        async Task ConnectionClosed(Exception e)
+        {
+            Prompt($"Closed. E: {e.Message}", true);
+            Console.WriteLine($"State: {_connection.State}");
+
+            await Task.Delay(100);
+
+            // Manually reconnect. It is replaced by .WithAutomaticReconnect()
+            //if (_connection.State == HubConnectionState.Disconnected) {
+            //    await Task.Delay(new Random().Next(0, 5) * 1000);
+            //    await _connection.StartAsync();
+            //}
+        }
+
+        async Task ConnectionReconnectiong(Exception e)
+        {
+            Console.WriteLine($"Reconnecting. E: {e.Message}");
+            Console.WriteLine($"State: {_connection.State}");
+
+            await Task.Delay(100);
+        }
+
+        async Task ConnectionReconnected(string arg)
+        {
+            Prompt($"Reconnected. {arg}", true);
+            Console.WriteLine($"State: {_connection.State}");
+
+            await Task.Delay(200);
+        }
+
+        private void Prompt(string text, bool console = false)
         {
             labelPrompt.Text = text;
+            if (console) {
+                Console.WriteLine($"** {text}");
+            }
         }
     }
 }
