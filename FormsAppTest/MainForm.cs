@@ -24,8 +24,7 @@ namespace FormsAppTest
 
             FormClosing += async (s, e) => await ExitAsync();
 
-            // MainAsync().Wait();
-            Task.Run(() => MainAsync().Wait());
+            Task.Run(() => MainAsync());
         }
 
         async Task MainAsync()
