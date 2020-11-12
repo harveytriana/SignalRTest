@@ -29,17 +29,30 @@ namespace FormsAppTest
 
         async Task MainAsync()
         {
-            _Connection = new HubConnectionBuilder()
-                 .WithUrl(_HubUri + _HubPath)
-                 .Build();
+            labelTime.Let(x => x.Text = "Connecting...");
+            labelValue.Let(x => x.Text = "Connecting...");
+            try {
 
-            await _Connection.StartAsync();
+                _Connection = new HubConnectionBuilder()
+                     .WithUrl(_HubUri + _HubPath)
+                     .Build();
 
-            // to subscribe, map exactly the hub's function
-            _Connection.On<string, Measurement>("Broadcast", (sender, measurement) => {
-                labelTime.Let(x => x.Text = measurement.Timestamp.ToString("HH:mm:ss"));
-                labelValue.Let(x => x.Text = measurement.Value.ToString("N6"));
-            });
+                await _Connection.StartAsync();
+
+                // to subscribe, map exactly the hub's function
+                _Connection.On<string, Measurement>("Broadcast", (sender, measurement) => {
+                    labelTime.Let(x => x.Text = measurement.Timestamp.ToString("HH:mm:ss.fff"));
+                    labelValue.Let(x => x.Text = measurement.Value.ToString("N6"));
+                });
+            }
+            catch(Exception e) {
+                labelTime.Let(x => x.Text = "Failed");
+                labelValue.Let(x => x.Text = "Failed");
+                Trace.WriteLine($"Exception: {e.Message}");
+                return;
+            }
+            labelTime.Let(x => x.Text = "Connected");
+            labelValue.Let(x => x.Text = "Connected");
         }
 
         async Task ExitAsync()
