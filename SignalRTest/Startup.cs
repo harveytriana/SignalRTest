@@ -36,14 +36,15 @@ namespace SignalRTest
             });
 
             services.AddRazorPages();
-            services.AddSignalR().AddMessagePackProtocol(); ;
+
+            // NOTE. JSON is enabled by default.Adding MessagePack enables support
+            //       for both JSON and MessagePack clients.
+           services.AddSignalR().AddMessagePackProtocol(); ;
 
             // NET Core MVC Page Not Refreshing After Changes
-            // FIX stackoverflow.com/questions/53639969/net-core-mvc-page-not-refreshing-after-changes
-            //     www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
-            // api
+            // Enables API REST
             services.AddControllers();
         }
 
@@ -69,7 +70,7 @@ namespace SignalRTest
                 endpoints.MapRazorPages();
                 endpoints.MapHub<ChatHub>("/chathub");
                 endpoints.MapHub<SensorHub>("/sensor");
-                endpoints.MapHub<WeatherReportHub>("/temperatureHub");
+                endpoints.MapHub<WeatherReportHub>("/weatherReportHub");
                 endpoints.MapControllers();
             });
         }

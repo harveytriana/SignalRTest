@@ -12,6 +12,7 @@ function MessagePackTest(hubUrl) {
         'Afghanistan',
         'Armenia',
         'Brazil',
+        'Colombia',
         'Grenada',
         'Ireland',
         'Seychelles',

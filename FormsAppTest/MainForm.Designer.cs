@@ -1,14 +1,15 @@
-﻿namespace FormsAppTest
+﻿
+namespace FormsAppTest
 {
     partial class MainForm
     {
         /// <summary>
-        ///  Required designer variable.
+        /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        ///  Clean up any resources being used.
+        /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
@@ -22,56 +23,49 @@
         #region Windows Form Designer generated code
 
         /// <summary>
-        ///  Required method for Designer support - do not modify
-        ///  the contents of this method with the code editor.
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
-            this.labelTime = new System.Windows.Forms.Label();
-            this.labelValue = new System.Windows.Forms.Label();
+            this.buttonSensor = new System.Windows.Forms.Button();
+            this.buttonWeatherReport = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // labelTime
+            // buttonSensor
             // 
-            this.labelTime.BackColor = System.Drawing.Color.Salmon;
-            this.labelTime.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelTime.ForeColor = System.Drawing.Color.LavenderBlush;
-            this.labelTime.Location = new System.Drawing.Point(28, 22);
-            this.labelTime.Name = "labelTime";
-            this.labelTime.Size = new System.Drawing.Size(200, 40);
-            this.labelTime.TabIndex = 0;
-            this.labelTime.Text = "Sensor Time";
-            this.labelTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.buttonSensor.Location = new System.Drawing.Point(24, 37);
+            this.buttonSensor.Name = "buttonSensor";
+            this.buttonSensor.Size = new System.Drawing.Size(304, 32);
+            this.buttonSensor.TabIndex = 0;
+            this.buttonSensor.Text = "Sensor Test";
+            this.buttonSensor.UseVisualStyleBackColor = true;
             // 
-            // labelValue
+            // buttonWeatherReport
             // 
-            this.labelValue.BackColor = System.Drawing.Color.DarkSalmon;
-            this.labelValue.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelValue.ForeColor = System.Drawing.Color.LavenderBlush;
-            this.labelValue.Location = new System.Drawing.Point(28, 64);
-            this.labelValue.Name = "labelValue";
-            this.labelValue.Size = new System.Drawing.Size(200, 40);
-            this.labelValue.TabIndex = 0;
-            this.labelValue.Text = "Sensor Value";
-            this.labelValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.buttonWeatherReport.Location = new System.Drawing.Point(28, 78);
+            this.buttonWeatherReport.Name = "buttonWeatherReport";
+            this.buttonWeatherReport.Size = new System.Drawing.Size(304, 32);
+            this.buttonWeatherReport.TabIndex = 1;
+            this.buttonWeatherReport.Text = "Weather Report Test  (Message Pack Protocol)";
+            this.buttonWeatherReport.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(251, 133);
-            this.Controls.Add(this.labelValue);
-            this.Controls.Add(this.labelTime);
+            this.ClientSize = new System.Drawing.Size(360, 146);
+            this.Controls.Add(this.buttonWeatherReport);
+            this.Controls.Add(this.buttonSensor);
             this.Name = "MainForm";
-            this.Text = "Forms App Test";
+            this.Text = "MainForm";
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label labelTime;
-        private System.Windows.Forms.Label labelValue;
+        private System.Windows.Forms.Button buttonSensor;
+        private System.Windows.Forms.Button buttonWeatherReport;
     }
 }
-
