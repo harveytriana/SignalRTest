@@ -2,7 +2,7 @@
 {
     public class WeatherReport
     {
-        public string ConnectionId { get; set; }
+        public string UserId { get; set; }
         public double Temperature { get; set; }
         public string Country { get; set; }
     }

@@ -45,6 +45,10 @@ namespace FormsAppTest
 
             buttonSend.Click += async (s, e) => await SendAsync();
 
+            buttonClear.Click += (s, e) => {
+                listBoxResult.Invoke((Action)(() => listBoxResult.Items.Clear()));
+            };
+
             buttonSend.Enabled = false;
         }
 
@@ -60,7 +64,7 @@ namespace FormsAppTest
 
                 // to subscribe, map exactly the hub's function
                 _Connection.On<WeatherReport>("Receive", (data) => {
-                    var s = $"Sender: ${data.ConnectionId}    {data.Country}: {data.Temperature} ºF";
+                    var s = $"Sender: {data.UserId.Substring(0, 8)} {data.Country}: {data.Temperature:N2} ºF";
 
                     listBoxResult.AddItemThread(s);
                 });
@@ -86,7 +90,7 @@ namespace FormsAppTest
             try {
                 await _Connection.InvokeAsync("Send", new WeatherReport
                 {
-                    ConnectionId= _userId,
+                    UserId = _userId,
                     Temperature = GetTemperature(),
                     Country = GetCountry()
                 });

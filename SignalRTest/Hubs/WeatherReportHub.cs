@@ -8,8 +8,7 @@ namespace SignalRTest.Hubs
     {
         public async Task Send(WeatherReport data)
         {
-            data.ConnectionId = Context.ConnectionId.ToUpper();
-
+            // simulate delay
             await Task.Delay(100);
 
             await Clients.All.SendAsync("Receive", data);

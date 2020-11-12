@@ -19,12 +19,13 @@ function MessagePackTest(hubUrl) {
         'Swaziland',
         'Zimbabwe'
     ];
+    const _userId = _newGuid();
 
     _connection.start().then(function () {
         document.getElementById('send-button').addEventListener('click', function () {
             for (var i = 1; i <= 12; i++) {
                 var data = {
-                    ConnectionId: '', // the server assigns it
+                    UserId: _userId, 
                     Temperature: getTemperature(),
                     Country: getCountry()
                 };
@@ -35,7 +36,7 @@ function MessagePackTest(hubUrl) {
 
     // N: notify from hub
     _connection.on('Receive', function (data) {
-        let s = `<li>Sender: ${data.ConnectionId}    ${data.Country}: ${data.Temperature} ºF</li>`;
+        let s = `<li>Sender: ${data.UserId.substring(0, 8)}    ${data.Country}: ${Number(data.Temperature).toFixed(2)} ºF</li>`;
         let li = document.createElement('li');
         li.innerHTML = s;
         list.appendChild(li);
