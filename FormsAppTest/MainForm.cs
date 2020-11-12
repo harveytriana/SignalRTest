@@ -10,6 +10,7 @@ namespace FormsAppTest
 
             buttonSensor.Click += (s, e) => new SensorForm().Show();
             buttonWeatherReport.Click += (s, e) => new WeatherReportForm().Show();
+            buttonStreamingExample.Click += (s, e) => new StreamingForm().Show();
         }
     }
 }

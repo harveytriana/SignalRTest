@@ -30,31 +30,42 @@ namespace FormsAppTest
         {
             this.buttonSensor = new System.Windows.Forms.Button();
             this.buttonWeatherReport = new System.Windows.Forms.Button();
+            this.buttonStreamingExample = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonSensor
             // 
             this.buttonSensor.Location = new System.Drawing.Point(24, 37);
             this.buttonSensor.Name = "buttonSensor";
-            this.buttonSensor.Size = new System.Drawing.Size(304, 32);
+            this.buttonSensor.Size = new System.Drawing.Size(304, 23);
             this.buttonSensor.TabIndex = 0;
             this.buttonSensor.Text = "Sensor Test";
             this.buttonSensor.UseVisualStyleBackColor = true;
             // 
             // buttonWeatherReport
             // 
-            this.buttonWeatherReport.Location = new System.Drawing.Point(28, 78);
+            this.buttonWeatherReport.Location = new System.Drawing.Point(24, 66);
             this.buttonWeatherReport.Name = "buttonWeatherReport";
-            this.buttonWeatherReport.Size = new System.Drawing.Size(304, 32);
+            this.buttonWeatherReport.Size = new System.Drawing.Size(304, 23);
             this.buttonWeatherReport.TabIndex = 1;
             this.buttonWeatherReport.Text = "Weather Report Test  (Message Pack Protocol)";
             this.buttonWeatherReport.UseVisualStyleBackColor = true;
+            // 
+            // buttonStreamingExample
+            // 
+            this.buttonStreamingExample.Location = new System.Drawing.Point(24, 95);
+            this.buttonStreamingExample.Name = "buttonStreamingExample";
+            this.buttonStreamingExample.Size = new System.Drawing.Size(304, 23);
+            this.buttonStreamingExample.TabIndex = 2;
+            this.buttonStreamingExample.Text = "Streaming (bloth stages)";
+            this.buttonStreamingExample.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(360, 146);
+            this.ClientSize = new System.Drawing.Size(360, 160);
+            this.Controls.Add(this.buttonStreamingExample);
             this.Controls.Add(this.buttonWeatherReport);
             this.Controls.Add(this.buttonSensor);
             this.Name = "MainForm";
@@ -67,5 +78,6 @@ namespace FormsAppTest
 
         private System.Windows.Forms.Button buttonSensor;
         private System.Windows.Forms.Button buttonWeatherReport;
+        private System.Windows.Forms.Button buttonStreamingExample;
     }
 }
