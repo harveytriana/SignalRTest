@@ -88,12 +88,13 @@ namespace FormsAppTest
         async Task SendAsync()
         {
             try {
-                await _Connection.InvokeAsync("Send", new WeatherReport
-                {
-                    UserId = _userId,
-                    Temperature = GetTemperature(),
-                    Country = GetCountry()
-                });
+                for (int i = 1; i <= 8; i++)
+                    await _Connection.InvokeAsync("Send", new WeatherReport
+                    {
+                        UserId = _userId,
+                        Temperature = GetTemperature(),
+                        Country = GetCountry()
+                    });
             }
             catch { }
         }
