@@ -71,6 +71,8 @@ namespace SignalRTest
                 endpoints.MapHub<ChatHub>("/chathub");
                 endpoints.MapHub<SensorHub>("/sensor");
                 endpoints.MapHub<WeatherReportHub>("/weatherReportHub");
+                endpoints.MapHub<StreamHub>("/streamHub");
+                // enables API REST
                 endpoints.MapControllers();
             });
         }

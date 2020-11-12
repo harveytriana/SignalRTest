@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleClientChatTest", "Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleAppSensor", "ConsoleAppSensor\ConsoleAppSensor.csproj", "{A05939FE-FE96-4C11-B62A-90C6574CF6ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormsAppTest", "FormsAppTest\FormsAppTest.csproj", "{1F9CD556-B441-4501-A0E4-7572893127F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FormsAppTest", "FormsAppTest\FormsAppTest.csproj", "{1F9CD556-B441-4501-A0E4-7572893127F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

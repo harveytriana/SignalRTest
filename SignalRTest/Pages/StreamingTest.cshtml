@@ -1,0 +1,29 @@
+﻿@page
+@model SignalRTest.Pages.StreamingTestModel
+@{
+}
+<h2>Streaming Test</h2>
+<div class="row">
+    <div class="col-1">&nbsp;</div>
+    <div class="col-11">
+        <input type="button" class="silverbutton" id="streamButton" value="Start Streaming" />
+        <br /><br />
+        <input type="button" class="silverbutton" id="uploadButton" value="Start Upload" />
+    </div>
+</div>
+<br />
+<hr />
+<div class="row">
+    <div class="col-1">&nbsp;</div>
+    <div class="col-11">
+        <ul id="messagesList"></ul>
+    </div>
+</div>
+
+@section scripts{
+    <script src="@Url.Content("~/lib/signalr/signalr.min.js")"></script>
+    <script src="@Url.Content("~/js/streamSample.js")" asp-append-version="true"></script>
+    <script>
+        StreamSample('@Url.Content("~/streamHub")');
+    </script>
+}
