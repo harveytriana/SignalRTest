@@ -5,6 +5,9 @@
 }
 <h1>@ViewData["Title"]</h1>
 <p>
+    MessagePack is a fast and compact binary serialization format. It's useful when performance and bandwidth are a concern because it creates smaller messages compared to JSON. The binary messages are unreadable when looking at network traces and logs unless the bytes are passed through a MessagePack parser. SignalR has built-in support for the MessagePack format, and provides APIs for the client and server to use.
+</p>
+<p>
     <a href="https://docs.microsoft.com/en-us/aspnet/core/signalr/messagepackhubprotocol?view=aspnetcore-3.1" target="_blank">
         MessagePack Hub Protocol in SignalR for ASP.NET Core
     </a>
@@ -12,11 +15,13 @@
 <hr />
 <div spellcheck="false">
     <h4><i class="fa fa-user-circle-o" aria-hidden="true"></i> <span id="user"></span> @ViewData["TestUser"]</h4>
-    <button id="send-button" class="btn btn-default btn-fix">Send Temperature</button>
-    <button id="clear-button" class="btn btn-default btn-fix">Clear</button>
+    <button id="send-button" class="silverbutton">Send Temperature</button>
+    <br /><br />
+    <button id="clear-button" class="silverbutton">Clear</button>
+    <br /><br />
     <hr />
     <div style="font-size:14px;margin-bottom:8px;">
-        <i class="fa fa-comments-o" aria-hidden="true"></i> <span id="list-title">Work Space</span>
+        <i class="fa fa-comments-o" aria-hidden="true"></i> <span id="list-title">Result</span>
     </div>
     <div style="font-family:'Courier New';font-size:12px;">
         <ul id="messages-list"></ul>
