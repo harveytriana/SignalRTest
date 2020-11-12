@@ -36,7 +36,7 @@ namespace SignalRTest
             });
 
             services.AddRazorPages();
-            services.AddSignalR();
+            services.AddSignalR().AddMessagePackProtocol(); ;
 
             // NET Core MVC Page Not Refreshing After Changes
             // FIX stackoverflow.com/questions/53639969/net-core-mvc-page-not-refreshing-after-changes
@@ -69,6 +69,7 @@ namespace SignalRTest
                 endpoints.MapRazorPages();
                 endpoints.MapHub<ChatHub>("/chathub");
                 endpoints.MapHub<SensorHub>("/sensor");
+                endpoints.MapHub<WeatherReportHub>("/temperatureHub");
                 endpoints.MapControllers();
             });
         }
