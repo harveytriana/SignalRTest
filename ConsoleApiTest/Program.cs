@@ -6,19 +6,28 @@ namespace ConsoleApiTest
 {
     class Program
     {
+        //static Tracer _tracer = new Tracer();
+
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Another Tests");
 
-            Console.ReadKey();
+            //_tracer.Start("SignalRTest_Index_{Date}");
+            //_tracer.Log("This is a Tracer test.");
 
             OnGet().Wait();
         }
 
         static async Task OnGet()
         {
-            var apiRoot = "http://localhost:8016";
-            //var apiRoot = "http://localhost/signalrtest";
+            //var apiRoot = "http://localhost:8016";
+            var apiRoot = Constants.IISSITE;
+
+            if (apiRoot != Constants.IISSITE) {
+
+                Console.WriteLine("\nPress any key when Server is ready.\n");
+                Console.ReadKey();
+            }
 
             using var rest = new RestClient(apiRoot);
 
@@ -28,7 +37,7 @@ namespace ConsoleApiTest
                 foreach (var i in data) {
                     Console.WriteLine(i);
                 }
-            } else { Console.WriteLine("Data is null."); } 
+            } else { Console.WriteLine("Data is null."); }
         }
     }
 }

@@ -3,12 +3,12 @@
 // ===============================
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
+using SignalRTest.Shared;
 
 //! SOURCES
 // https://docs.microsoft.com/en-us/aspnet/core/signalr/streaming?view=aspnetcore-3.1
@@ -18,6 +18,14 @@ namespace SignalRTest.Hubs
 {
     public class StreamHub : Hub
     {
+        Tracer _tracer;
+
+        public StreamHub(Tracer tracer)
+        {
+            _tracer = tracer;
+            _tracer.Start("SignalRTest_StreamHub");
+        }
+
         #region Server-to-client streaming
         // hub method becomes a streaming hub method when it returns IAsyncEnumerable<T>, ChannelReader<T>
         // or async versions
@@ -28,6 +36,8 @@ namespace SignalRTest.Hubs
             int delay,
             CancellationToken cancellationToken)
         {
+            _tracer.Log($"Run ChannelReader<int> Counter1(count: {count}, delay: {delay})");
+
             var channel = Channel.CreateUnbounded<int>();
 
             // We don't want to await WriteItemsAsync, otherwise we'd end up waiting 
@@ -70,6 +80,8 @@ namespace SignalRTest.Hubs
             [EnumeratorCancellation]
             CancellationToken cancellationToken)
         {
+            _tracer.Log($"Run IAsyncEnumerable<int> Counter2(count: {count}, delay: {delay})");
+
             for (int i = 0; i < count; i++) {
                 // 
                 // Check the cancellation token regularly so that the server will stop
@@ -91,12 +103,12 @@ namespace SignalRTest.Hubs
         // first approach, ChannelReader<T>
         public async Task UploadStream(ChannelReader<string> stream)
         {
-            Trace.WriteLine($"UploadStream {stream}");
+            _tracer.Log($"Run UploadStream(ChannelReader stream: {stream})", true);
 
             while (await stream.WaitToReadAsync()) {
                 while (stream.TryRead(out var item)) {
                     // do something with the stream item
-                    Trace.WriteLine($"From client: {item}");
+                    _tracer.Log($"From client: {item}", true);
                 }
             }
         }
@@ -105,8 +117,11 @@ namespace SignalRTest.Hubs
         //! requires C# 8.0 or later.
         public async Task UploadStream2(IAsyncEnumerable<string> stream)
         {
+            _tracer.Log($"UploadStream2(IAsyncEnumerable stream: {stream})", true);
+
             await foreach (var item in stream) {
-                Console.WriteLine(item);
+                // do something with the stream item
+                _tracer.Log($"From client: {item}", true);
             }
         }
         #endregion

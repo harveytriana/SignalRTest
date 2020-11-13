@@ -1,23 +1,19 @@
-﻿using System.Threading.Tasks;
+﻿using SignalRTest.Shared;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FormsAppTest
 {
     public partial class StreamingForm : Form
     {
-        readonly string[] _url = {
-            "http://localhost/SignalrTest/streamHub",
-            "https://localhost:8016/streamHub",
-        };
-        readonly int _urlIndex = 0;
-
         readonly StreamingClient _ss;
+        readonly string _url = Constants.IISSITE + "/streamHub";
 
         public StreamingForm()
         {
             InitializeComponent();
 
-            _ss = new StreamingClient(_url[_urlIndex]);
+            _ss = new StreamingClient(_url);
             _ss.Prompt += (s) => Prompt(s);
 
             buttonConnect.Click += (s, e) => Connect();
@@ -25,17 +21,18 @@ namespace FormsAppTest
             buttonClientToServer.Click += (s, e) => ClientToServer();
             FormClosing += (s, e) => _ss.Dispose();
 
-            Prompt(_url[_urlIndex]);
+            Prompt(_url);
         }
 
         private void Connect()
         {
             buttonConnect.Enabled = false;
-            buttonServerToClient.Enabled = true;
-            buttonClientToServer.Enabled = true;
 
             Task.Run(async () => {
-                await _ss.ConnectAsync();
+                if (await _ss.ConnectAsync()) {
+                    buttonClientToServer.Let(x => x.Enabled = true);
+                    buttonServerToClient.Let(x => x.Enabled = true);
+                }
             });
         }
 
@@ -55,14 +52,19 @@ namespace FormsAppTest
             buttonClientToServer.Enabled = false;
 
             Task.Run(async () => {
-                await _ss.SendStreamBasicDemotration();
-                // await _ss.SendStream();
+                // await _ss.SendStreamBasicDemotration();
+                await _ss.SendStream();
             });
         }
 
         private void Prompt(string text)
         {
             labelPrompt.Let(x => x.Text = text);
+
+            if (text == "Complete") {
+                buttonClientToServer.Let(x => x.Enabled = true);
+                buttonServerToClient.Let(x => x.Enabled = true);
+            }
         }
     }
 }

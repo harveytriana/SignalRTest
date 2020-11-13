@@ -68,6 +68,7 @@ namespace FormsAppTest
             // 
             // buttonServerToClient
             // 
+            this.buttonServerToClient.Enabled = false;
             this.buttonServerToClient.Location = new System.Drawing.Point(125, 154);
             this.buttonServerToClient.Name = "buttonServerToClient";
             this.buttonServerToClient.Size = new System.Drawing.Size(160, 23);
@@ -77,6 +78,7 @@ namespace FormsAppTest
             // 
             // buttonClientToServer
             // 
+            this.buttonClientToServer.Enabled = false;
             this.buttonClientToServer.Location = new System.Drawing.Point(125, 183);
             this.buttonClientToServer.Name = "buttonClientToServer";
             this.buttonClientToServer.Size = new System.Drawing.Size(160, 23);

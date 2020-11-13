@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Channels;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ namespace FormsAppTest
             _hubUrl = hubUrl;
         }
 
-        public async Task ConnectAsync()
+        public async Task<bool> ConnectAsync()
         {
             try {
                 _connection = new HubConnectionBuilder()
@@ -33,42 +34,35 @@ namespace FormsAppTest
 
                 Prompt?.Invoke($"Hub is Started. Waiting Signals.");
 
-                //TODO whats for?
-                //_h.Closed += async (exception) =>
-                //{
-                //    Prompt?.Invoke(exception.Message);
-                //    Prompt?.Invoke("restart");
-                //    await Task.Delay(new Random().Next(0, 5) * 1000);
-                //    await _h.StartAsync();
-                //};
                 _connected = true;
             }
             catch (Exception exception) {
                 Prompt?.Invoke($"Exception: {exception.Message}");
                 _connected = false;
             }
+
+            return _connected;
         }
 
         #region Server to Client
-        // * does not use _connected for simply sample
-
         // the data is streamed from the server to the client.
         // Hub's method note:
         // Counter1: ChannelReader<T>
         // Counter2: IAsyncEnumerable<T>
         // Both are valid for these methods:
-
-        // StreamAsChannelAsync<T>
+        //
         public async Task ReadStream()
         {
-            // read from the hub using ChannelReader
+            if (!_connected) {
+                return;
+            }
             var channel = await _connection.StreamAsChannelAsync<int>("Counter2", 16, 333, _cts.Token);
             while (await channel.WaitToReadAsync()) {
                 while (channel.TryRead(out int data)) {
                     Prompt?.Invoke($"Received {data}");
                 }
             }
-            Prompt?.Invoke("Streaming completed");
+            Prompt?.Invoke("Complete");
         }
 
         // StreamAsync<T>
@@ -88,15 +82,26 @@ namespace FormsAppTest
         // Basic sample of MS
         public async Task SendStreamBasicDemotration()
         {
+            if (!_connected) {
+                return;
+            }
             var channel = Channel.CreateBounded<string>(10);
             await _connection.SendAsync("UploadStream", channel.Reader);
             await channel.Writer.WriteAsync("some data");
             await channel.Writer.WriteAsync("some more data");
             channel.Writer.Complete();
+
+            Prompt?.Invoke("Complete");
         }
 
+        // HUB
+        // UploadStream: parameter is ChannelReader<string> stream
+        // UploadStream2: parameter is IAsyncEnumerable<string> strea
         public async Task SendStream()
         {
+            if (!_connected) {
+                return;
+            }
             Prompt?.Invoke("SendStream");
 
             var channel = Channel.CreateBounded<string>(10);
@@ -115,17 +120,19 @@ namespace FormsAppTest
         }
 
         // C# 8
-        //public async Task SendStream2()
-        //{
-        //    await _h.SendAsync("UploadStream", ClientStreamData());
-        //}
-        //async IAsyncEnumerable<int> ClientStreamData()
-        //{
-        //    for (var i = 0; i < 16; i++) {
-        //        await Task.Delay(333);
-        //        yield return i;
-        //    }
-        //}
+        public async Task SendStream2()
+        {
+            await _connection.SendAsync("UploadStream2", ClientStreamData());
+        }
+
+        async IAsyncEnumerable<int> ClientStreamData()
+        {
+            for (var i = 0; i < 8; i++) {
+                yield return i;
+                await Task.Delay(333);
+            }
+            Prompt?.Invoke("Complete");
+        }
         #endregion
 
         public void Dispose()
