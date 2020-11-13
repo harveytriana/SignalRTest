@@ -6,60 +6,54 @@ namespace FormsAppTest
 {
     public partial class StreamingForm : Form
     {
-        readonly StreamingClient _ss;
+        readonly StreamingClient _streamingClient;
         readonly string _url = Constants.IISSITE + "/streamHub";
 
         public StreamingForm()
         {
             InitializeComponent();
 
-            _ss = new StreamingClient(_url);
-            _ss.Prompt += (s) => Prompt(s);
+            _streamingClient = new StreamingClient(_url);
+            _streamingClient.Prompt += (s) => Prompt(s);
 
-            buttonConnect.Click += (s, e) => Connect();
-            buttonServerToClient.Click += (s, e) => ServerToClient();
-            buttonClientToServer.Click += (s, e) => ClientToServer();
-            FormClosing += (s, e) => _ss.Dispose();
+            buttonConnect.Click += async (s, e) => await Connect();
+            buttonServerToClient.Click += async (s, e) => await ServerToClient();
+            buttonClientToServer.Click += async (s, e) => await ClientToServer();
+            FormClosing += (s, e) => _streamingClient.Dispose();
 
             Prompt(_url);
         }
 
-        private void Connect()
+        async Task Connect()
         {
             buttonConnect.Enabled = false;
 
-            Task.Run(async () => {
-                if (await _ss.ConnectAsync()) {
-                    buttonClientToServer.Let(x => x.Enabled = true);
-                    buttonServerToClient.Let(x => x.Enabled = true);
-                }
-            });
+            if (await _streamingClient.ConnectAsync()) {
+                buttonClientToServer.Let(x => x.Enabled = true);
+                buttonServerToClient.Let(x => x.Enabled = true);
+            }
         }
 
-        private void ServerToClient()
+        async Task ServerToClient()
         {
             buttonServerToClient.Enabled = false;
             buttonClientToServer.Enabled = false;
 
-            Task.Run(async () => {
-                await _ss.ReadStream();
-            });
+            await _streamingClient.ReadStream();
         }
 
-        private void ClientToServer()
+        async Task ClientToServer()
         {
             buttonServerToClient.Enabled = false;
             buttonClientToServer.Enabled = false;
 
-            Task.Run(async () => {
-                // ChannelReader: UploadStream
-                // IAsyncEnumerable: UploadStream2
-                // 
-                await _ss.SendStream();
+            // ChannelReader: UploadStream
+            // IAsyncEnumerable: UploadStream2
+            // 
+            await _streamingClient.SendStream();
 
-                // another sample
-                // await _ss.SendStreamBasicDemotration();
-            });
+            // another sample
+            // await _ss.SendStreamBasicDemotration();
         }
 
         private void Prompt(string text)

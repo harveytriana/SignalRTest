@@ -12,6 +12,7 @@ namespace FormsAppTest
         readonly string _hubUrl;
 
         HubConnection _connection;
+
         readonly CancellationTokenSource _cts = new CancellationTokenSource();
         bool _connected;
 
@@ -144,10 +145,8 @@ namespace FormsAppTest
                 Prompt?.Invoke("Unsubscribed");
                 //_h.InvokeAsync("Unsubscribe", _ItemId).Wait();
 
-                Task.Run(async () => {
-                    await _connection.StopAsync();
-                    await _connection.DisposeAsync();
-                });
+                _connection.StopAsync();
+                _connection.DisposeAsync();
             }
         }
     }
