@@ -52,8 +52,13 @@ namespace FormsAppTest
             buttonClientToServer.Enabled = false;
 
             Task.Run(async () => {
-                // await _ss.SendStreamBasicDemotration();
+                // ChannelReader: UploadStream
+                // IAsyncEnumerable: UploadStream2
+                // 
                 await _ss.SendStream();
+
+                // another sample
+                // await _ss.SendStreamBasicDemotration();
             });
         }
 

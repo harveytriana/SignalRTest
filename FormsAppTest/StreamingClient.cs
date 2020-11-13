@@ -78,7 +78,7 @@ namespace FormsAppTest
         //}
         #endregion
 
-        #region Client-to-server streaming
+        #region Client to Server
         // Basic sample of MS
         public async Task SendStreamBasicDemotration()
         {
@@ -97,6 +97,7 @@ namespace FormsAppTest
         // HUB
         // UploadStream: parameter is ChannelReader<string> stream
         // UploadStream2: parameter is IAsyncEnumerable<string> strea
+        //
         public async Task SendStream()
         {
             if (!_connected) {
@@ -125,11 +126,13 @@ namespace FormsAppTest
             await _connection.SendAsync("UploadStream2", ClientStreamData());
         }
 
-        async IAsyncEnumerable<int> ClientStreamData()
+        async IAsyncEnumerable<string> ClientStreamData()
         {
             for (var i = 0; i < 8; i++) {
-                yield return i;
+                var s = $"Some data {i}";
+                Prompt?.Invoke($"Sending -> {s}");
                 await Task.Delay(333);
+                yield return s;
             }
             Prompt?.Invoke("Complete");
         }
