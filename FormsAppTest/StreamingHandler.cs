@@ -51,18 +51,18 @@ namespace FormsAppTest
         #region Server to Client
         // the data is streamed from the server to the client.
         // Hub's method note:
-        // Counter1: ChannelReader<T>
-        // Counter2: IAsyncEnumerable<T>
+        // CounterChannel: ChannelReader<T>
+        // CounterEnumerable: IAsyncEnumerable<T>
         // Both are valid for these methods:
         //
-        // Works with Counter1, but 
-        // works with Counter2 too
+        // Works with CounterChannel, but 
+        // works with CounterEnumerable too
         public async Task ReadStreamChannel()
         {
             if (!_connected) {
                 return;
             }
-            var channel = await _connection.StreamAsChannelAsync<int>("Counter2", 12, 333, _cts.Token);
+            var channel = await _connection.StreamAsChannelAsync<int>("CounterEnumerable", 12, 333, _cts.Token);
             // Wait asynchronously for data to become available
             while (await channel.WaitToReadAsync()) {
                 // Read all currently available data synchronously, before waiting for more data
@@ -79,7 +79,7 @@ namespace FormsAppTest
         public async Task ReadStream()
         {
             // The correct syntax is:
-            await foreach (var count in _connection.StreamAsync<int>("Counter2", 12, 333, _cts.Token)) {
+            await foreach (var count in _connection.StreamAsync<int>("CounterEnumerable", 12, 333, _cts.Token)) {
                 Prompt?.Invoke($"Received {count}");
             }
             Prompt?.Invoke("Completed");
@@ -96,7 +96,7 @@ namespace FormsAppTest
         async Task ReadStream_0()
         {
             // await? 'IAsyncEnumerable<int>' does not contain a definition for 'GetAwaiter'
-            var stream = _connection.StreamAsync<int>("Counter2", 12, 333, _cts.Token);
+            var stream = _connection.StreamAsync<int>("CounterEnumerable", 12, 333, _cts.Token);
 
             // The correct syntax is:
             await foreach (var count in stream) {
@@ -116,7 +116,7 @@ namespace FormsAppTest
             Prompt?.Invoke("SendStreamBasicDemotration");
 
             var channel = Channel.CreateBounded<string>(10);
-            await _connection.SendAsync("UploadStream", channel.Reader);
+            await _connection.SendAsync("UploadStreamChannel", channel.Reader);
             await channel.Writer.WriteAsync("some data");
             await channel.Writer.WriteAsync("some more data");
             channel.Writer.Complete();
@@ -132,7 +132,7 @@ namespace FormsAppTest
             Prompt?.Invoke("SendStreamChannel");
 
             var channel = Channel.CreateBounded<string>(10);
-            await _connection.SendAsync("UploadStream", channel.Reader);
+            await _connection.SendAsync("UploadStreamChannel", channel.Reader);
 
             for (int i = 1; i < 8; i++) {
                 var s = $"Some data {i}";
@@ -151,7 +151,7 @@ namespace FormsAppTest
         {
             Prompt?.Invoke("SendStreamEnumerable");
 
-            await _connection.SendAsync("UploadStream2", ClientStreamData());
+            await _connection.SendAsync("UploadStreamEnumerable", ClientStreamData());
         }
 
         async IAsyncEnumerable<string> ClientStreamData()

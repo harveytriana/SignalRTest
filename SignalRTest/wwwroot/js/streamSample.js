@@ -30,10 +30,10 @@ function StreamSample(hubUrl) {
         //_list.innerHTML = "";
         try {
             // Hub's method note:
-            // Counter1: ChannelReader<T>
-            // Counter2: IAsyncEnumerable<T>
+            // CounterChannel: ChannelReader<T>
+            // CounterEnumerable: IAsyncEnumerable<T>
             //
-            _h.stream("Counter2", 10, 500)
+            _h.stream("CounterEnumerable", 10, 500)
                 .subscribe({
                     next: (item) => {
                         addItem(item);
@@ -59,7 +59,7 @@ function StreamSample(hubUrl) {
         addItem("Receiving from client...");
 
         const subject = new signalR.Subject();
-        yield _h.send("UploadStream", subject);
+        yield _h.send("UploadStreamChannel", subject);
         var iteration = 0;
         const intervalHandle = setInterval(() => {
             iteration++;

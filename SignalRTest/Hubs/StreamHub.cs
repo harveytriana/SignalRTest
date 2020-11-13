@@ -32,15 +32,15 @@ namespace SignalRTest.Hubs
         // first approach, ChannelReader<T>
         //
         // NOTE
-        // 2020 - can? public async Task<ChannelReader<int>> Counter1( 
+        // 2020 - can? public async Task<ChannelReader<int>> CounterChannel( 
         // NOT (Exception thrown: System.Reflection.TargetInvocationException)
         //
-        public ChannelReader<int> Counter1(
+        public ChannelReader<int> CounterChannel(
                    int count,
                    int delay,
                    CancellationToken cancellationToken)
         {
-            _tracer.Log($"Run ChannelReader<int> Counter1(count: {count}, delay: {delay})");
+            _tracer.Log($"Run ChannelReader<int> CounterChannel(count: {count}, delay: {delay})");
 
             var channel = Channel.CreateUnbounded<int>();
 
@@ -77,13 +77,13 @@ namespace SignalRTest.Hubs
 
         // Second apprach. IAsyncEnumerable<T> ... Server Application using Async Streams
         //! requires C# 8.0 or later.
-        public async IAsyncEnumerable<int> Counter2(
+        public async IAsyncEnumerable<int> CounterEnumerable(
             int count,
             int delay,
             [EnumeratorCancellation]
             CancellationToken cancellationToken)
         {
-            _tracer.Log($"Run IAsyncEnumerable<int> Counter2(count: {count}, delay: {delay})");
+            _tracer.Log($"Run IAsyncEnumerable<int> CounterEnumerable(count: {count}, delay: {delay})");
 
             for (int i = 0; i < count; i++) {
                 // 
@@ -104,9 +104,9 @@ namespace SignalRTest.Hubs
         // Receiving Streams on the Server
 
         // first approach, ChannelReader<T>
-        public async Task UploadStream(ChannelReader<string> stream)
+        public async Task UploadStreamChannel(ChannelReader<string> stream)
         {
-            _tracer.Log($"Run UploadStream(ChannelReader stream: {stream})", true);
+            _tracer.Log($"Run UploadStreamChannel(ChannelReader stream: {stream})", true);
 
             while (await stream.WaitToReadAsync()) {
                 while (stream.TryRead(out var item)) {
@@ -118,9 +118,9 @@ namespace SignalRTest.Hubs
 
         // Second apporach. IAsyncEnumerable<T>
         //! requires C# 8.0 or later.
-        public async Task UploadStream2(IAsyncEnumerable<string> stream)
+        public async Task UploadStreamEnumerable(IAsyncEnumerable<string> stream)
         {
-            _tracer.Log($"UploadStream2(IAsyncEnumerable stream: {stream})", true);
+            _tracer.Log($"UploadStreamEnumerable(IAsyncEnumerable stream: {stream})", true);
 
             await foreach (var item in stream) {
                 // do something with the stream item
