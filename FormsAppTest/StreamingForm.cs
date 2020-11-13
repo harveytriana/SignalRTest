@@ -47,20 +47,19 @@ namespace FormsAppTest
             buttonServerToClient.Enabled = false;
             buttonClientToServer.Enabled = false;
 
-            // ChannelReader: UploadStream
-            // IAsyncEnumerable: UploadStream2
-            // 
-            await _streamingClient.SendStream();
+            // TWO APPROACHS
+            // await _streamingClient.SendStreamChannel();
+            await _streamingClient.SendStreamEnumerable();
 
             // another sample
-            // await _ss.SendStreamBasicDemotration();
+            // await _streamingClient.SendStreamBasicDemotration();
         }
 
         private void Prompt(string text)
         {
             labelPrompt.Let(x => x.Text = text);
 
-            if (text == "Complete") {
+            if (text == "Completed") {
                 buttonClientToServer.Let(x => x.Enabled = true);
                 buttonServerToClient.Let(x => x.Enabled = true);
             }

@@ -5,6 +5,9 @@ using System.Threading;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 
+//! SOURCES
+// https://docs.microsoft.com/en-us/aspnet/core/signalr/streaming?view=aspnetcore-3.1
+
 namespace FormsAppTest
 {
     class StreamingClient : IDisposable
@@ -60,12 +63,14 @@ namespace FormsAppTest
                 return;
             }
             var channel = await _connection.StreamAsChannelAsync<int>("Counter2", 12, 333, _cts.Token);
+            // Wait asynchronously for data to become available
             while (await channel.WaitToReadAsync()) {
+                // Read all currently available data synchronously, before waiting for more data
                 while (channel.TryRead(out int data)) {
                     Prompt?.Invoke($"Received {data}");
                 }
             }
-            Prompt?.Invoke("Complete");
+            Prompt?.Invoke("Completed");
         }
 
         // StreamAsync<T>
@@ -73,7 +78,26 @@ namespace FormsAppTest
         // testing in console app ... new StreamingTest().StreamingAsync().Wait();
         public async Task ReadStream2()
         {
+            // The correct syntax is:
+            await foreach (var count in _connection.StreamAsync<int>("Counter2", 12, 333, _cts.Token)) {
+                Prompt?.Invoke($"Received {count}");
+            }
+            Prompt?.Invoke("Completed");
+        }
+
+        //  It seemed to happen, sometimes
+        //  ISSUE. When close the Window
+        //? Exception thrown: 'System.IO.IOException' in System.Net.Sockets.dll
+        //
+        //? await? 'IAsyncEnumerable<int>' does not contain a definition for 'GetAwaiter'
+        //  https://github.com/dotnet/AspNetCore.Docs/issues/20562
+        //
+        public async Task ReadStream2_0()
+        {
+            // await? 'IAsyncEnumerable<int>' does not contain a definition for 'GetAwaiter'
             var stream = _connection.StreamAsync<int>("Counter2", 12, 333, _cts.Token);
+
+            // The correct syntax is:
             await foreach (var count in stream) {
                 Prompt?.Invoke($"Received {count}");
             }
@@ -88,25 +112,23 @@ namespace FormsAppTest
             if (!_connected) {
                 return;
             }
+            Prompt?.Invoke("SendStreamBasicDemotration");
+
             var channel = Channel.CreateBounded<string>(10);
             await _connection.SendAsync("UploadStream", channel.Reader);
             await channel.Writer.WriteAsync("some data");
             await channel.Writer.WriteAsync("some more data");
             channel.Writer.Complete();
 
-            Prompt?.Invoke("Complete");
+            Prompt?.Invoke("Completed");
         }
 
-        // HUB
-        // UploadStream: parameter is ChannelReader<string> stream
-        // UploadStream2: parameter is IAsyncEnumerable<string> strea
-        //
-        public async Task SendStream()
+        public async Task SendStreamChannel()
         {
             if (!_connected) {
                 return;
             }
-            Prompt?.Invoke("SendStream");
+            Prompt?.Invoke("SendStreamChannel");
 
             var channel = Channel.CreateBounded<string>(10);
             await _connection.SendAsync("UploadStream", channel.Reader);
@@ -120,12 +142,14 @@ namespace FormsAppTest
             }
 
             channel.Writer.Complete();
-            Prompt?.Invoke("Complete");
+            Prompt?.Invoke("Completed");
         }
 
-        // C# 8
-        public async Task SendStream2()
+        // C# 8 >=
+        public async Task SendStreamEnumerable()
         {
+            Prompt?.Invoke("SendStreamEnumerable");
+
             await _connection.SendAsync("UploadStream2", ClientStreamData());
         }
 
@@ -137,7 +161,7 @@ namespace FormsAppTest
                 await Task.Delay(333);
                 yield return s;
             }
-            Prompt?.Invoke("Complete");
+            Prompt?.Invoke("Completed");
         }
         #endregion
 

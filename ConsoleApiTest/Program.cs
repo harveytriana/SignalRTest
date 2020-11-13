@@ -15,6 +15,8 @@ namespace ConsoleApiTest
             //_tracer.Start("SignalRTest_Index_{Date}");
             //_tracer.Log("This is a Tracer test.");
 
+            var x = System.Reflection.Assembly.GetExecutingAssembly();
+
             OnGet().Wait();
         }
 

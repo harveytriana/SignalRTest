@@ -36,9 +36,9 @@ namespace SignalRTest.Hubs
         // NOT (Exception thrown: System.Reflection.TargetInvocationException)
         //
         public ChannelReader<int> Counter1(
-            int count,
-            int delay,
-            CancellationToken cancellationToken)
+                   int count,
+                   int delay,
+                   CancellationToken cancellationToken)
         {
             _tracer.Log($"Run ChannelReader<int> Counter1(count: {count}, delay: {delay})");
 
@@ -48,7 +48,6 @@ namespace SignalRTest.Hubs
             // for all the items to be written before returning the channel back to
             // the client.
             //- _ = WriteItemsAsync(channel.Writer, count, delay, cancellationToken);
-            //+ i prefer a single block
 
             Exception localException = null;
 
