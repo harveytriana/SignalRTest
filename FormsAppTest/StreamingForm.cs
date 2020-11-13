@@ -6,20 +6,20 @@ namespace FormsAppTest
 {
     public partial class StreamingForm : Form
     {
-        readonly StreamingClient _streamingClient;
+        readonly StreamingHandler _streamingHandler;
         readonly string _url = Constants.IISSITE + "/streamHub";
 
         public StreamingForm()
         {
             InitializeComponent();
 
-            _streamingClient = new StreamingClient(_url);
-            _streamingClient.Prompt += (s) => Prompt(s);
+            _streamingHandler = new StreamingHandler(_url);
+            _streamingHandler.Prompt += (s) => Prompt(s);
 
             buttonConnect.Click += async (s, e) => await Connect();
             buttonServerToClient.Click += async (s, e) => await ServerToClient();
             buttonClientToServer.Click += async (s, e) => await ClientToServer();
-            FormClosing += (s, e) => _streamingClient.Dispose();
+            FormClosing += (s, e) => _streamingHandler.Dispose();
 
             Prompt(_url);
         }
@@ -28,7 +28,7 @@ namespace FormsAppTest
         {
             buttonConnect.Enabled = false;
 
-            if (await _streamingClient.ConnectAsync()) {
+            if (await _streamingHandler.ConnectAsync()) {
                 buttonClientToServer.Let(x => x.Enabled = true);
                 buttonServerToClient.Let(x => x.Enabled = true);
             }
@@ -39,7 +39,9 @@ namespace FormsAppTest
             buttonServerToClient.Enabled = false;
             buttonClientToServer.Enabled = false;
 
-            await _streamingClient.ReadStream2();
+            // TWO APPROACHS
+            // await _streamingHandler.ReadStreamChannel();
+            await _streamingHandler.ReadStream();
         }
 
         async Task ClientToServer()
@@ -48,8 +50,8 @@ namespace FormsAppTest
             buttonClientToServer.Enabled = false;
 
             // TWO APPROACHS
-            // await _streamingClient.SendStreamChannel();
-            await _streamingClient.SendStreamEnumerable();
+            // await _streamingHandler.SendStreamChannel();
+            await _streamingHandler.SendStreamEnumerable();
 
             // another sample
             // await _streamingClient.SendStreamBasicDemotration();

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace FormsAppTest
 {
-    class StreamingClient : IDisposable
+    class StreamingHandler : IDisposable
     {
         readonly string _hubUrl;
 
@@ -22,7 +22,7 @@ namespace FormsAppTest
         public delegate void PromptEventHandler(string text);
         public event PromptEventHandler Prompt;
 
-        public StreamingClient(string hubUrl)
+        public StreamingHandler(string hubUrl)
         {
             _hubUrl = hubUrl;
         }
@@ -57,7 +57,7 @@ namespace FormsAppTest
         //
         // Works with Counter1, but 
         // works with Counter2 too
-        public async Task ReadStream1()
+        public async Task ReadStreamChannel()
         {
             if (!_connected) {
                 return;
@@ -76,7 +76,7 @@ namespace FormsAppTest
         // StreamAsync<T>
         // valid for C# 8 -> .NET Core 3.0+
         // testing in console app ... new StreamingTest().StreamingAsync().Wait();
-        public async Task ReadStream2()
+        public async Task ReadStream()
         {
             // The correct syntax is:
             await foreach (var count in _connection.StreamAsync<int>("Counter2", 12, 333, _cts.Token)) {
@@ -85,6 +85,7 @@ namespace FormsAppTest
             Prompt?.Invoke("Completed");
         }
 
+        // NOTES
         //  It seemed to happen, sometimes
         //  ISSUE. When close the Window
         //? Exception thrown: 'System.IO.IOException' in System.Net.Sockets.dll
@@ -92,7 +93,7 @@ namespace FormsAppTest
         //? await? 'IAsyncEnumerable<int>' does not contain a definition for 'GetAwaiter'
         //  https://github.com/dotnet/AspNetCore.Docs/issues/20562
         //
-        public async Task ReadStream2_0()
+        async Task ReadStream_0()
         {
             // await? 'IAsyncEnumerable<int>' does not contain a definition for 'GetAwaiter'
             var stream = _connection.StreamAsync<int>("Counter2", 12, 333, _cts.Token);
