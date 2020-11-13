@@ -39,7 +39,7 @@ namespace FormsAppTest
             buttonServerToClient.Enabled = false;
             buttonClientToServer.Enabled = false;
 
-            await _streamingClient.ReadStream();
+            await _streamingClient.ReadStream2();
         }
 
         async Task ClientToServer()

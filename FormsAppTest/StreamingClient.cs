@@ -52,12 +52,14 @@ namespace FormsAppTest
         // Counter2: IAsyncEnumerable<T>
         // Both are valid for these methods:
         //
-        public async Task ReadStream()
+        // Works with Counter1, but 
+        // works with Counter2 too
+        public async Task ReadStream1()
         {
             if (!_connected) {
                 return;
             }
-            var channel = await _connection.StreamAsChannelAsync<int>("Counter2", 16, 333, _cts.Token);
+            var channel = await _connection.StreamAsChannelAsync<int>("Counter2", 12, 333, _cts.Token);
             while (await channel.WaitToReadAsync()) {
                 while (channel.TryRead(out int data)) {
                     Prompt?.Invoke($"Received {data}");
@@ -69,14 +71,14 @@ namespace FormsAppTest
         // StreamAsync<T>
         // valid for C# 8 -> .NET Core 3.0+
         // testing in console app ... new StreamingTest().StreamingAsync().Wait();
-        //public async Task ReadStream2()
-        //{
-        //    var stream = _h.StreamAsync<int>("Counter2", 16, 333, _cts.Token);
-        //    await foreach (var count in stream) {
-        //        Prompt?.Invoke($"Received {count}");
-        //    }
-        //    Prompt?.Invoke("Streaming completed");
-        //}
+        public async Task ReadStream2()
+        {
+            var stream = _connection.StreamAsync<int>("Counter2", 12, 333, _cts.Token);
+            await foreach (var count in stream) {
+                Prompt?.Invoke($"Received {count}");
+            }
+            Prompt?.Invoke("Completed");
+        }
         #endregion
 
         #region Client to Server

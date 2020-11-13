@@ -30,7 +30,11 @@ namespace SignalRTest.Hubs
         // hub method becomes a streaming hub method when it returns IAsyncEnumerable<T>, ChannelReader<T>
         // or async versions
         // first approach, ChannelReader<T>
-        //! 2020 - can? public async Task<ChannelReader<int>> Counter1(
+        //
+        // NOTE
+        // 2020 - can? public async Task<ChannelReader<int>> Counter1( 
+        // NOT (Exception thrown: System.Reflection.TargetInvocationException)
+        //
         public ChannelReader<int> Counter1(
             int count,
             int delay,
