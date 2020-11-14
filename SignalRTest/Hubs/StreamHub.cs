@@ -13,6 +13,8 @@ using SignalRTest.Shared;
 //! SOURCES
 // https://docs.microsoft.com/en-us/aspnet/core/signalr/streaming?view=aspnetcore-3.1
 // https://csharp.christiannagel.com/2019/10/08/signalrstreaming/
+// review
+// https://github.com/dotnet/AspNetCore.Docs/issues/20562
 
 namespace SignalRTest.Hubs
 {
