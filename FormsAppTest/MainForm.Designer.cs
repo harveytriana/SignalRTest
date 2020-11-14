@@ -57,7 +57,7 @@ namespace FormsAppTest
             this.buttonStreamingExample.Name = "buttonStreamingExample";
             this.buttonStreamingExample.Size = new System.Drawing.Size(304, 23);
             this.buttonStreamingExample.TabIndex = 2;
-            this.buttonStreamingExample.Text = "Streaming (bloth stages)";
+            this.buttonStreamingExample.Text = "Streaming";
             this.buttonStreamingExample.UseVisualStyleBackColor = true;
             // 
             // MainForm
