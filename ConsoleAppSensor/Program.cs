@@ -15,8 +15,10 @@ namespace ConsoleAppSensor
         // Solution (run both projects)
         // static string _HubUri = "http://localhost:8016";
         // Publishen in IIS
-        static readonly string _HubUri = "http://localhost/SignalrTest";
+        static readonly string _HubUri = Constants.IISSITE;
         static readonly string _HubPath = "/sensor";
+
+        static Tracer _tracer;
 
         static void Main()
         {
@@ -31,6 +33,9 @@ namespace ConsoleAppSensor
                 builder.AddConsole();
             });
             ILogger logger = loggerFactory.CreateLogger<Program>();
+
+            _tracer = new Tracer();
+            _tracer.Start("Sensor_00", false);
 
             // start
             logger.LogInformation("Start Thread");
@@ -76,6 +81,9 @@ namespace ConsoleAppSensor
                 measurement.Value= value;
                 // report
                 logger.LogInformation($"Broadcasting: {measurement}");
+
+                _tracer.Log($"{measurement.Timestamp:HH:mm:ss}\t{measurement.Value:0.0000}");
+
                 // Finally send the value:
                 await hubConnection.SendAsync("Broadcast", "Sensor", measurement);
             }

@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleAppSensor", "Console
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FormsAppTest", "FormsAppTest\FormsAppTest.csproj", "{1F9CD556-B441-4501-A0E4-7572893127F4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleStreamingTest", "ConsoleStreamingTest\ConsoleStreamingTest.csproj", "{989F3045-9E40-4B4D-9AF5-660BEC0CF050}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{1F9CD556-B441-4501-A0E4-7572893127F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F9CD556-B441-4501-A0E4-7572893127F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F9CD556-B441-4501-A0E4-7572893127F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{989F3045-9E40-4B4D-9AF5-660BEC0CF050}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{989F3045-9E40-4B4D-9AF5-660BEC0CF050}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{989F3045-9E40-4B4D-9AF5-660BEC0CF050}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{989F3045-9E40-4B4D-9AF5-660BEC0CF050}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

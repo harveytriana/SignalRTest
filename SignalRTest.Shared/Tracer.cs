@@ -16,7 +16,9 @@ namespace SignalRTest.Shared
 
         // Not for Azure, only development
 
-        public void Start(string logFile)
+        bool _timeColumn = true;
+
+        public void Start(string logFile, bool timeColumn = true)
         {
             try {
                 _isOpen = false;
@@ -36,6 +38,7 @@ namespace SignalRTest.Shared
                 _isOpen = true;
             }
             catch { }
+            _timeColumn = timeColumn;
         }
 
         public void Log(string text, bool useConsole = false)
@@ -43,7 +46,11 @@ namespace SignalRTest.Shared
             if (_isOpen) {
                 using (var fs = File.Open(LogFile, FileMode.Append, FileAccess.Write, FileShare.Read))
                 using (var tw = new StreamWriter(fs)) {
-                    tw.WriteLine($"{DateTime.Now.ToString("dd-MM-yy HH:mm:ss")} {text}");
+                    if (_timeColumn) {
+                        tw.WriteLine($"{DateTime.Now.ToString("dd-MM-yy HH:mm:ss")} {text}");
+                    } else {
+                        tw.WriteLine(text);
+                    }
                 }
                 if (useConsole) {
                     Console.WriteLine(text);
