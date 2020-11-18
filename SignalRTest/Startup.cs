@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SignalRTest.Hubs;
+using SignalRTest.Services;
 using SignalRTest.Shared;
 
 namespace SignalRTest
@@ -50,6 +51,9 @@ namespace SignalRTest
 
             // custom log file. For debugging purposes only
             services.AddSingleton<Tracer>();
+
+            // logic for not allow duplicate users
+            services.AddSingleton<IRealTimeSubscriber, ChatSubscribers>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

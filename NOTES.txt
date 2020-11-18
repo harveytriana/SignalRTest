@@ -38,3 +38,7 @@ https://docs.microsoft.com/es-es/aspnet/core/security/cors?view=aspnetcore-3.1
 Format the Code
 https://stackoverflow.com/questions/5755942/how-do-you-auto-format-code-in-visual-studio
 Edit.FormatDocument	-A LET Shift+Alt+F
+
+Important!
+ASP.NET Core SignalR JavaScript client
+https://docs.microsoft.com/en-us/aspnet/core/signalr/javascript-client?view=aspnetcore-5.0
