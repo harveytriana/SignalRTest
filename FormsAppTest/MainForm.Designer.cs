@@ -39,7 +39,7 @@ namespace FormsAppTest
             this.buttonSensor.Name = "buttonSensor";
             this.buttonSensor.Size = new System.Drawing.Size(304, 23);
             this.buttonSensor.TabIndex = 0;
-            this.buttonSensor.Text = "Sensor Test";
+            this.buttonSensor.Text = "Sensor Client";
             this.buttonSensor.UseVisualStyleBackColor = true;
             // 
             // buttonWeatherReport
