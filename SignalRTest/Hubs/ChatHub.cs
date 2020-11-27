@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using SignalRTest.Services;
-using SignalRTest.Shared;
+using System;
 using System.Threading.Tasks;
 
 namespace SignalRTest.Hubs
@@ -8,47 +8,36 @@ namespace SignalRTest.Hubs
     public class ChatHub : Hub
     {
         readonly ChatSubscribers _subscriber;
-        readonly Tracer _tracer;
 
-        public ChatHub(IRealTimeSubscriber subscriber, Tracer tracer)
+        public ChatHub(IRealTimeSubscriber subscriber)
         {
             _subscriber = subscriber as ChatSubscribers;
-            _tracer = tracer;
-
-            _tracer.Start("SignalRTest.ChatHub");
         }
 
         public async Task SendMessage(string user, string message)
         {
-            if (_subscriber.IsSubscribed(user)) {
-                await Clients.All.SendAsync("ReceiveMessage", user, message);
-            } else {
-                // just for example
-                await Clients.All.SendAsync("ReceiveMessage", "Anonymus", "Unathorized");
-            }
+            await _subscriber.SendMessage(user, message);
         }
 
         public async Task<bool> Subscribe(string user)
         {
-            var result = _subscriber.Subscribe(user);
-            if (result) {
-                _tracer.Log($"Subscribe: {user}? {result}.");
-                await Clients.All.SendAsync("ConnectedClients", _subscriber.ClientsCount());
-            }
-            else {
-                _tracer.Log($"{user} was not subscribed.");
-            }
-            return result;
+            return await _subscriber.Subscribe(user, Context.ConnectionId);
         }
 
-        public async Task< bool> Unsubscribe(string user)
+        public async Task<bool> Unsubscribe(string user)
         {
-            var result = _subscriber.Unsubscribe(user);
-            if (result) {
-                _tracer.Log($"Unsubscribe: {user}? {result}");
-                await Clients.All.SendAsync("ConnectedClients", _subscriber.ClientsCount());
-            }
-            return result;
+            return await _subscriber.Unsubscribe(user);
+        }
+
+        //public override Task OnConnectedAsync()
+        //{
+        //    return base.OnConnectedAsync();
+        //}
+
+        public override Task OnDisconnectedAsync(Exception exception)
+        {
+            _subscriber.UnsubscribeUnatended(Context.ConnectionId).Wait();
+            return base.OnDisconnectedAsync(exception);
         }
     }
 }

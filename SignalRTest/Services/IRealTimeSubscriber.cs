@@ -1,8 +1,10 @@
-﻿namespace SignalRTest.Services
+﻿using System.Threading.Tasks;
+
+namespace SignalRTest.Services
 {
     public interface IRealTimeSubscriber
     {
-        bool Subscribe(string user);
-        bool Unsubscribe(string user);
+        Task<bool> Subscribe(string user, string id);
+        Task<bool> Unsubscribe(string user);
     }
 }
