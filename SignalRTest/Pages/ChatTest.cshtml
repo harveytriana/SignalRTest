@@ -1,10 +1,14 @@
 ﻿@page
+@model SignalRTest.Pages.ChatTestModel
+@{
+    ViewData["Title"] = "Classic Chat Sample";
+}
 <h1>Server Self SignalR Client</h1>
 <hr />
 <table cellpadding="4">
     <tr>
         <td>User</td>
-        <td><input type="text" id="userInput" value="Self Client" /></td>
+        <td><input type="text" id="userInput" value="@Model.UserName" /></td>
     </tr>
     <tr>
         <td>Message</td>
@@ -16,6 +20,8 @@
         </td>
     </tr>
 </table>
+<br />
+<div id="status" style="color:darkslategray;font-size:12px">Status</div>
 <hr />
 <div>
     <ul id="messagesList"></ul>

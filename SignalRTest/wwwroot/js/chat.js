@@ -7,6 +7,7 @@ var SimpleChat = function (hubUrl) {
     const userInput = document.getElementById('userInput');
     const button = document.getElementById('sendButton');
     const list = document.getElementById('messagesList');
+    const status = document.getElementById('status');
 
     const connection = new signalR.HubConnectionBuilder()
         .withUrl(hubUrl)
@@ -25,6 +26,10 @@ var SimpleChat = function (hubUrl) {
         let li = document.createElement('li');
         li.textContent = encodedMsg;
         list.appendChild(li);
+    });
+
+    connection.on('ConnectedClients', (clientsCount) => {
+        status.textContent = 'Conected lientes: ' + clientsCount;
     });
 
     connection.start().then(() => {

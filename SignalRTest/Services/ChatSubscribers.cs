@@ -28,5 +28,10 @@ namespace SignalRTest.Services
         {
             return _users.Contains(user);
         }
+
+        public int ClientsCount()
+        {
+            return _users.Count;
+        }
     }
 }

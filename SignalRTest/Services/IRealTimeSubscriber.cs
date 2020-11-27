@@ -4,6 +4,5 @@
     {
         bool Subscribe(string user);
         bool Unsubscribe(string user);
-        bool IsSubscribed(string user);
     }
 }

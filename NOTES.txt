@@ -42,3 +42,12 @@ Edit.FormatDocument	-A LET Shift+Alt+F
 Important!
 ASP.NET Core SignalR JavaScript client
 https://docs.microsoft.com/en-us/aspnet/core/signalr/javascript-client?view=aspnetcore-5.0
+
+Patron de Logger in Page
+------------------------
+readonly ILogger<ChatTestModel> _logger;
+
+public ChatTestModel(ILogger<ChatTestModel> logger)
+{
+    _logger = logger;
+}

@@ -7,12 +7,12 @@ namespace SignalRTest.Hubs
 {
     public class ChatHub : Hub
     {
-        readonly IRealTimeSubscriber _subscriber;
+        readonly ChatSubscribers _subscriber;
         readonly Tracer _tracer;
 
         public ChatHub(IRealTimeSubscriber subscriber, Tracer tracer)
         {
-            _subscriber = subscriber;
+            _subscriber = subscriber as ChatSubscribers;
             _tracer = tracer;
 
             _tracer.Start("SignalRTest.ChatHub");
@@ -28,19 +28,26 @@ namespace SignalRTest.Hubs
             }
         }
 
-        public bool Subscribe(string user)
+        public async Task<bool> Subscribe(string user)
         {
             var result = _subscriber.Subscribe(user);
-            _tracer.Log($"Subscribe: {user}? {result}");
-
+            if (result) {
+                _tracer.Log($"Subscribe: {user}? {result}.");
+                await Clients.All.SendAsync("ConnectedClients", _subscriber.ClientsCount());
+            }
+            else {
+                _tracer.Log($"{user} was not subscribed.");
+            }
             return result;
         }
 
-        public bool Unsubscribe(string user)
+        public async Task< bool> Unsubscribe(string user)
         {
             var result = _subscriber.Unsubscribe(user);
-            _tracer.Log($"Unsubscribe: {user}? {result}");
-
+            if (result) {
+                _tracer.Log($"Unsubscribe: {user}? {result}");
+                await Clients.All.SendAsync("ConnectedClients", _subscriber.ClientsCount());
+            }
             return result;
         }
     }
