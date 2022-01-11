@@ -13,9 +13,9 @@ namespace ConsoleAppSensor
     class Program
     {
         // Solution (run both projects)
-        // static string _HubUri = "http://localhost:8016";
+        static string _HubUri = "http://localhost:8016";
         // Publishen in IIS
-        static readonly string _HubUri = Constants.IISSITE;
+        // static readonly string _HubUri = Constants.IISSITE;
         static readonly string _HubPath = "/sensor";
 
         static Tracer _tracer;
